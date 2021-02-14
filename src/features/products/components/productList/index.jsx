@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   CardActionArea,
@@ -12,14 +11,20 @@ import {
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { removeLettersOfString } from 'src/ulities/ulities';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 ProductList.propTypes = {
   productList: PropTypes.array,
+  onClick: PropTypes.func,
+  onEdit: PropTypes.func,
+  onRemove: PropTypes.func,
 };
 
 ProductList.defaultProps = {
   productList: [],
+  onClick: null,
+  onEdit: null,
+  onRemove: null,
 };
 
 const useStyle = makeStyles({
@@ -31,7 +36,7 @@ const useStyle = makeStyles({
   cardItem: {
     display: 'flex',
     flexDirection: 'column',
-    flex: '1 0 auto',
+    height: '100%',
     '& div:nth-child(2)': {
       display: 'flex',
       flexDirection: 'column',
@@ -45,12 +50,13 @@ const useStyle = makeStyles({
 
 function ProductList(props) {
   const { productList, onEdit, onRemove } = props;
+  const match = useRouteMatch();
   const classes = useStyle();
 
   return (
     <div>
       <Grid container direction="row" spacing={3}>
-        {productList.map((product) => (
+        {productList.map((product, idx) => (
           <Grid
             hovered="true"
             key={product.id}
@@ -62,53 +68,67 @@ function ProductList(props) {
             zeroMinWidth
           >
             <Card className={classes.cardProduct}>
-              <CardActionArea className={classes.cardItem}>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  alt="Contemplative Reptile"
-                  image={product.images[0]}
-                  onError={() => {
-                    let idx = 0;
-                    if (idx <= product.images.length) {
-                      idx++;
-                      return product.images[idx];
-                    }
-                    return;
-                  }}
-                  title="Contemplative Reptile"
-                />
+              <Link
+                style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
+                to={`${match.path}/product-detail/${product.id}`}
+              >
+                <CardActionArea className={classes.cardItem}>
+                  <CardMedia
+                    component="img"
+                    height="200"
+                    alt="Contemplative Reptile"
+                    image={product.images[0]}
+                    onError={() => {
+                      let idx = 0;
+                      if (idx <= product.images.length) {
+                        idx++;
+                        return product.images[idx];
+                      }
+                      return;
+                    }}
+                    title="Contemplative Reptile"
+                  />
 
-                <CardContent>
-                  <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                    whiteSpace="pre-wrap"
-                  >
-                    {product.name}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                    whiteSpace="pre-line"
-                  >
-                    {removeLettersOfString(product.shortDescription, '&nbsp;')}
-                  </Typography>
-                  <Typography variant="h5" color="textSecondary" component="h5">
-                    {new Intl.NumberFormat('de-DE', {
-                      style: 'currency',
-                      currency: 'VND',
-                    }).format(product.originalPrice)}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {product.name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      {product.shortDescription}
+                    </Typography>
+                    <Typography variant="h5" color="textSecondary" component="h5">
+                      {new Intl.NumberFormat('de-DE', {
+                        style: 'currency',
+                        currency: 'VND',
+                      }).format(product.originalPrice)}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Link>
+
               <CardActions>
-                <Button size="small" color="primary">
-                  Edit
-                </Button>
-                <Button size="small" color="primary">
+                <Link
+                  style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
+                  to={`${match.path}/edit/${product.id}`}
+                >
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => {
+                      onEdit && onEdit(product);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </Link>
+
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => {
+                    onRemove && onRemove(product);
+                  }}
+                >
                   Delete
                 </Button>
               </CardActions>

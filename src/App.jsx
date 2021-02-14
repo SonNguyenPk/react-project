@@ -2,6 +2,7 @@ import { Container } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
+import PageNotFound from './components/PageNotFound';
 import ProductFeature from './features/products';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <Switch>
         <Route path="/products" component={ProductFeature} />
+        <Route component={PageNotFound} />
       </Switch>
     </div>
   );
