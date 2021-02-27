@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 function InputField(props) {
   const { name, label, type, form } = props;
   const formState = form.formState;
-  console.log('formState', formState);
   const errorMessage = formState.errors[name]?.message;
   const hasError = !!errorMessage;
 

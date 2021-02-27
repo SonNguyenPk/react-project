@@ -3,6 +3,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 import productsApi from 'src/api/productApi';
+import ScrollToTop from 'src/components/ScrollToTop';
 import ProductList from '../../components/productList';
 
 ProductsData.propTypes = {};
@@ -26,16 +27,14 @@ function ProductsData() {
 
   const location = useLocation();
   const match = useRouteMatch();
-  console.log({ location, match });
 
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
         const { data, pagination } = await productsApi.getAll(filters);
-        console.log(data, pagination);
-        setLoading(false);
 
+        setLoading(false);
         setProductList(data);
         setPagination(pagination);
       } catch (error) {
@@ -163,6 +162,7 @@ function ProductsData() {
           onChange={handlePaginationClick}
         />
       </Box>
+      <ScrollToTop />
     </div>
   );
 }

@@ -1,10 +1,12 @@
 import {
+  Box,
   Grid,
   GridList,
   GridListTile,
   GridListTileBar,
   IconButton,
   makeStyles,
+  Typography,
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import PropTypes from 'prop-types';
@@ -15,6 +17,7 @@ ShowImages.propTypes = {
   initialImages: PropTypes.array,
   onRemoveInitial: PropTypes.func,
   onRemoveAdd: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 ShowImages.defaultProps = {
@@ -32,29 +35,32 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    width: '100%',
+    // width: '100%',
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
   },
 }));
 
-function ShowImages({ file, initialImages, onRemoveInitial, onRemoveAdd }) {
-  console.log({ file, initialImages });
-
+function ShowImages({ file, initialImages, onRemoveInitial, onRemoveAdd, onChange }) {
   const classes = useStyles();
 
   return (
-    <Grid container spacing={1}>
+    <Grid
+      container
+      spacing={1}
+      onClick={() => onChange([file, ...initialImages])} // onChange from controller component of react hook form to get value of images
+    >
+      <Grid item xs={12}>
+        <Typography> Product Images</Typography>
+      </Grid>
       {/* Show initial images */}
-      <Grid item>
-        <GridList cellHeight={300} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-            {/* <ListSubheader component="div">December</ListSubheader> */}
-          </GridListTile>
+      <Grid item xs={12}>
+        <GridList className={classes.gridList} cols={2}>
+          {/* <GridListTile key="Subheader" cols={1}></GridListTile> */}
           {initialImages &&
             initialImages.map((Url, idxEdit) => (
-              <GridListTile key={Url}>
+              <GridListTile key={Url} spacing={1} cols={1} rows={2}>
                 <img src={Url} alt={Url} />
                 <GridListTileBar
                   title={idxEdit}
@@ -64,7 +70,6 @@ function ShowImages({ file, initialImages, onRemoveInitial, onRemoveAdd }) {
                       // aria-label={`info about ${tile.title}`}
                       className={classes.icon}
                       onClick={(e) => {
-                        e.stopPropagation();
                         onRemoveInitial && onRemoveInitial(Url, idxEdit);
                       }}
                     >
@@ -77,14 +82,12 @@ function ShowImages({ file, initialImages, onRemoveInitial, onRemoveAdd }) {
         </GridList>
       </Grid>
       {/* Upload Images preview */}
-      <Grid item>
-        <GridList cellHeight={300} className={classes.gridList}>
-          <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-            {/* <ListSubheader component="div">December</ListSubheader> */}
-          </GridListTile>
-          {file &&
-            file.fileImages.map((Url, idxAdd) => (
-              <GridListTile key={Url}>
+      {file && (
+        <Grid item xs={12}>
+          <GridList className={classes.gridList} cols={2}>
+            {/* <GridListTile key="Subheader" cols={2}></GridListTile> */}
+            {file.fileImages.map((Url, idxAdd) => (
+              <GridListTile key={Url} spacing={1} children="contain" cols={1} rows={2}>
                 <img src={Url} alt={Url} />
                 <GridListTileBar
                   title={file.fileNameArray[idxAdd]}
@@ -94,7 +97,6 @@ function ShowImages({ file, initialImages, onRemoveInitial, onRemoveAdd }) {
                       // aria-label={`info about ${tile.title}`}
                       className={classes.icon}
                       onClick={(e) => {
-                        e.stopPropagation();
                         onRemoveAdd && onRemoveAdd(idxAdd);
                       }}
                     >
@@ -104,8 +106,9 @@ function ShowImages({ file, initialImages, onRemoveInitial, onRemoveAdd }) {
                 />
               </GridListTile>
             ))}
-        </GridList>
-      </Grid>
+          </GridList>
+        </Grid>
+      )}
     </Grid>
   );
 }

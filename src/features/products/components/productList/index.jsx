@@ -12,6 +12,7 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import ScrollToTop from 'src/components/ScrollToTop';
 
 ProductList.propTypes = {
   productList: PropTypes.array,
@@ -36,7 +37,6 @@ const useStyle = makeStyles({
   cardItem: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
     '& div:nth-child(2)': {
       display: 'flex',
       flexDirection: 'column',
@@ -93,9 +93,9 @@ function ProductList(props) {
                     <Typography gutterBottom variant="h5" component="h2">
                       {product.name}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                      {product.shortDescription}
-                    </Typography>
+                    {/* <Typography variant="body2" color="textSecondary" component="p">
+                      {removeLettersOfString(product.shortDescription, '&nbsp')}
+                    </Typography> */}
                     <Typography variant="h5" color="textSecondary" component="h5">
                       {new Intl.NumberFormat('de-DE', {
                         style: 'currency',
@@ -136,6 +136,7 @@ function ProductList(props) {
           </Grid>
         ))}
       </Grid>
+      
     </div>
   );
 }

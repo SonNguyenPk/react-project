@@ -1,5 +1,6 @@
 import { Box, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { PhotoCamera } from '@material-ui/icons';
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    margin: '10px 0',
 
     height: '50px',
     width: '50px',
@@ -66,23 +68,18 @@ function InputImageField(props) {
 
   const classes = useStyles();
 
-  const handleOnChange = (e) => {
-    console.log(e.target.files);
+  const handleOnChange = (e, onChange) => {
     setFilesImage(convertToArray(e.target.files));
-    console.log({ filesImage });
   };
 
-  const handleRemoveInitial = (Url, idxEdit) => {
-    console.log({ idxEdit, Url });
+  const handleRemoveInitialImage = (Url, idxEdit) => {
     if (idxEdit >= 0) {
-      console.log(initialImages);
       const newImages = initialImages.filter((x) => Url !== x);
-      console.log({ newImages });
       setInitialImages(newImages);
     }
   };
 
-  const handleRemoveAdd = (idxAdd) => {
+  const handleRemoveUploadImage = (idxAdd) => {
     console.log({ idxAdd });
     if (idxAdd >= 0) {
       const newFilesImage = { ...filesImage };
@@ -90,43 +87,44 @@ function InputImageField(props) {
       newFilesImage.fileNameArray.splice(idxAdd, 1);
       newFilesImage.fileImageDetail.splice(idxAdd, 1);
 
-      console.log({ newFilesImage });
       setFilesImage(newFilesImage);
     }
   };
 
   return (
-    <div>
-      <Controller
-        control={form.control}
-        name={name}
-        label={label}
-        render={({ onChange, ref }) => (
-          <Box>
-            <ShowImages
-              file={filesImage}
-              initialImages={initialImages}
-              onRemoveInitial={handleRemoveInitial}
-              onRemoveAdd={handleRemoveAdd}
-            />
+    <Controller
+      control={form.control}
+      name={name}
+      label={label}
+      render={({ onBlur, onChange }) => (
+        <Box>
+          <ShowImages
+            file={filesImage}
+            initialImages={initialImages}
+            onRemoveInitial={handleRemoveInitialImage}
+            onRemoveAdd={handleRemoveUploadImage}
+            onChange={onChange} // onChange is became a prop to ShowImage component
+          />
+          <Box width="50px">
             <input
+              accept="image/*"
               style={{ display: 'none' }}
               multiple
               id="upFile"
               type="file"
-              onChange={handleOnChange}
+              onChange={(e) => handleOnChange(e, onChange)}
             />
             <label htmlFor="upFile">
               <Tooltip title="Chosen a file" aria-label="add">
                 <Box className={classes.button}>
-                  <AddIcon />
+                  <PhotoCamera />
                 </Box>
               </Tooltip>
             </label>
           </Box>
-        )}
-      />
-    </div>
+        </Box>
+      )}
+    />
   );
 }
 

@@ -1,4 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button } from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -25,7 +27,7 @@ const schema = yup.object().shape({
         return value.split(' ').filter((word) => word.length >= 2).length >= 2;
       }
     ),
-  shortDescription: yup
+  description: yup
     .string()
     .required(
       'Please fill your product description for having clearly knowledge to your product'
@@ -55,15 +57,20 @@ function AddEditForm(props) {
   return (
     <form noValidate onSubmit={form.handleSubmit(handleSubmitForm)}>
       <InputField name="name" label="Product Name" type="text" form={form} />
-      <InputTexAreaField
-        name="shortDescription"
-        label="Product Description"
-        form={form}
-      />
+      <InputTexAreaField name="description" label="Product Description" form={form} />
       <InputField name="salePrice" label="Sale Price" type="number" form={form} />
       <InputField name="originalPrice" label="Original Price" type="number" form={form} />
       <InputField name="promotionPercent" label="Promotion" type="number" form={form} />
       <InputImageField name="images" label="upload images" form={form} />
+      <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        startIcon={<SaveIcon />}
+        type="submit"
+      >
+        Save
+      </Button>
     </form>
   );
 }
