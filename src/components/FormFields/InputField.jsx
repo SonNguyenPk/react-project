@@ -27,10 +27,6 @@ const useStyles = makeStyles((theme) => ({
 function InputField(props) {
   const { name, label, type, form } = props;
   const formState = form.formState;
-<<<<<<< HEAD
-  console.log('formState', formState);
-=======
->>>>>>> origin/feature/products-addform
   const errorMessage = formState.errors[name]?.message;
   const hasError = !!errorMessage;
 
