@@ -8,7 +8,6 @@ import Loading from 'src/components/loading';
 =======
 import { useRouteMatch } from 'react-router-dom';
 import productsApi from 'src/api/productApi';
-import Loading from 'src/components/Loading';
 import ProductItem from '../../components/productDetail';
 >>>>>>> origin/feature/products-addform
 
@@ -36,12 +35,7 @@ function ProductDetail(props) {
 
   // console.log('ehem');
 
-  return (
-    <div>
-      {loading && <Loading />}
-      {product && <ProductItem product={product} />}
-    </div>
-  );
+  return <div>{product && <ProductItem product={product} />}</div>;
 }
 
 export default ProductDetail;
