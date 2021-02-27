@@ -12,17 +12,9 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-=======
+
 import ScrollToTop from 'src/components/ScrollToTop';
->>>>>>> origin/feature/products-addform
-=======
->>>>>>> Stashed changes
-=======
-import ScrollToTop from 'src/components/ScrollToTop';
->>>>>>> Stashed changes
+
 
 ProductList.propTypes = {
   productList: PropTypes.array,
