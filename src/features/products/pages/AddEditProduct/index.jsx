@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AddEditForm from '../../components/AddEditForm';
 import { Box } from '@material-ui/core';
 import { useRouteMatch } from 'react-router-dom';
 import productsApi from 'src/api/productApi';
+=======
+import { Box } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+import productsApi from 'src/api/productApi';
+import AddEditForm from '../../components/AddEditForm';
+>>>>>>> origin/feature/products-addform
 
 AddEditProduct.propTypes = {};
 
