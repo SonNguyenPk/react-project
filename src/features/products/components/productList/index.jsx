@@ -12,10 +12,13 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 =======
 import ScrollToTop from 'src/components/ScrollToTop';
 >>>>>>> origin/feature/products-addform
+=======
+>>>>>>> Stashed changes
 
 ProductList.propTypes = {
   productList: PropTypes.array,
@@ -149,7 +152,6 @@ function ProductList(props) {
           </Grid>
         ))}
       </Grid>
-      
     </div>
   );
 }
