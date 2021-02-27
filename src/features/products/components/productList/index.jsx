@@ -13,6 +13,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 
+import ScrollToTop from 'src/components/ScrollToTop';
+
+
 ProductList.propTypes = {
   productList: PropTypes.array,
   onClick: PropTypes.func,
