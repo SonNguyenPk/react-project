@@ -1,9 +1,6 @@
 import { Box, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-<<<<<<< HEAD
-=======
 import { PhotoCamera } from '@material-ui/icons';
->>>>>>> origin/feature/products-addform
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -31,10 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-<<<<<<< HEAD
-=======
     margin: '10px 0',
->>>>>>> origin/feature/products-addform
 
     height: '50px',
     width: '50px',
@@ -74,20 +68,6 @@ function InputImageField(props) {
 
   const classes = useStyles();
 
-<<<<<<< HEAD
-  const handleOnChange = (e) => {
-    console.log(e.target.files);
-    setFilesImage(convertToArray(e.target.files));
-    console.log({ filesImage });
-  };
-
-  const handleRemoveInitial = (Url, idxEdit) => {
-    console.log({ idxEdit, Url });
-    if (idxEdit >= 0) {
-      console.log(initialImages);
-      const newImages = initialImages.filter((x) => Url !== x);
-      console.log({ newImages });
-=======
   const handleOnChange = (e, onChange) => {
     setFilesImage(convertToArray(e.target.files));
   };
@@ -95,16 +75,11 @@ function InputImageField(props) {
   const handleRemoveInitialImage = (Url, idxEdit) => {
     if (idxEdit >= 0) {
       const newImages = initialImages.filter((x) => Url !== x);
->>>>>>> origin/feature/products-addform
       setInitialImages(newImages);
     }
   };
 
-<<<<<<< HEAD
-  const handleRemoveAdd = (idxAdd) => {
-=======
   const handleRemoveUploadImage = (idxAdd) => {
->>>>>>> origin/feature/products-addform
     console.log({ idxAdd });
     if (idxAdd >= 0) {
       const newFilesImage = { ...filesImage };
@@ -112,31 +87,11 @@ function InputImageField(props) {
       newFilesImage.fileNameArray.splice(idxAdd, 1);
       newFilesImage.fileImageDetail.splice(idxAdd, 1);
 
-<<<<<<< HEAD
-      console.log({ newFilesImage });
-=======
->>>>>>> origin/feature/products-addform
       setFilesImage(newFilesImage);
     }
   };
 
   return (
-<<<<<<< HEAD
-    <div>
-      <Controller
-        control={form.control}
-        name={name}
-        label={label}
-        render={({ onChange, ref }) => (
-          <Box>
-            <ShowImages
-              file={filesImage}
-              initialImages={initialImages}
-              onRemoveInitial={handleRemoveInitial}
-              onRemoveAdd={handleRemoveAdd}
-            />
-            <input
-=======
     <Controller
       control={form.control}
       name={name}
@@ -153,38 +108,23 @@ function InputImageField(props) {
           <Box width="50px">
             <input
               accept="image/*"
->>>>>>> origin/feature/products-addform
               style={{ display: 'none' }}
               multiple
               id="upFile"
               type="file"
-<<<<<<< HEAD
-              onChange={handleOnChange}
-=======
               onChange={(e) => handleOnChange(e, onChange)}
->>>>>>> origin/feature/products-addform
             />
             <label htmlFor="upFile">
               <Tooltip title="Chosen a file" aria-label="add">
                 <Box className={classes.button}>
-<<<<<<< HEAD
-                  <AddIcon />
-=======
                   <PhotoCamera />
->>>>>>> origin/feature/products-addform
                 </Box>
               </Tooltip>
             </label>
           </Box>
-<<<<<<< HEAD
-        )}
-      />
-    </div>
-=======
         </Box>
       )}
     />
->>>>>>> origin/feature/products-addform
   );
 }
 

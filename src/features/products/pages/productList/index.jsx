@@ -27,10 +27,6 @@ function ProductsData() {
 
   const location = useLocation();
   const match = useRouteMatch();
-<<<<<<< HEAD
-  console.log({ location, match });
-=======
->>>>>>> origin/feature/products-addform
 
   useEffect(() => {
     (async () => {

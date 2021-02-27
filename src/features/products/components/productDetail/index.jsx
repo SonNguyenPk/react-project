@@ -2,15 +2,9 @@ import { Box, Button, FormGroup, Grid, Input, Typography } from '@material-ui/co
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { makeStyles } from '@material-ui/core/styles';
-<<<<<<< HEAD
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import parse, { domToReact } from 'html-react-parser';
-=======
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
->>>>>>> origin/feature/products-addform
 
 ProductItem.propTypes = {
   product: PropTypes.object,
