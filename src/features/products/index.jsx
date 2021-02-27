@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
@@ -5,6 +6,14 @@ import { Container } from '@material-ui/core';
 import ProductsData from './pages/productList';
 import ProductDetail from './pages/detailProduct';
 import AddEditProduct from './pages/AddEditProduct';
+=======
+import { Container } from '@material-ui/core';
+import React from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import AddEditProduct from './pages/AddEditProduct';
+import ProductDetail from './pages/DetailProduct';
+import ProductsData from './pages/ProductList';
+>>>>>>> origin/feature/products-addform
 
 ProductFeature.propTypes = {};
 

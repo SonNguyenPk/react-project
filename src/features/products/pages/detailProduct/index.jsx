@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
+<<<<<<< HEAD
 import PropTypes from 'prop-types';
 import ProductItem from '../../components/productDetail';
 import { useRouteMatch } from 'react-router-dom';
 import productsApi from 'src/api/productApi';
 import Loading from 'src/components/loading';
+=======
+import { useRouteMatch } from 'react-router-dom';
+import productsApi from 'src/api/productApi';
+import Loading from 'src/components/Loading';
+import ProductItem from '../../components/productDetail';
+>>>>>>> origin/feature/products-addform
 
 ProductDetail.propTypes = {};
 

@@ -1,8 +1,11 @@
-import { Container } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import PageNotFound from './components/PageNotFound';
+<<<<<<< HEAD
+=======
+import ScrollToTop from './components/ScrollToTop';
+>>>>>>> origin/feature/products-addform
 import ProductFeature from './features/products';
 
 function App() {
