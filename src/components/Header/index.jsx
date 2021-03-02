@@ -1,4 +1,6 @@
+import { Button } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
+import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import Menu from '@material-ui/core/Menu';
@@ -6,11 +8,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { AddShoppingCart } from '@material-ui/icons';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -74,15 +79,31 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  link: {
+    textDecoration: 'none',
+    width: '100%',
+  },
+  button: {
+    width: '100%',
+    border: 'none',
+    '&': {
+      textAlign: 'left',
+    },
+  },
 }));
 
-export default function Header() {
+export default function PrimarySearchAppBar() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [mobileNavBar, setMobileNavBar] = useState(null);
+  const location = useLocation();
+  const match = useRouteMatch();
+  console.log({ match, location });
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isMobileNavBarOpen = Boolean(mobileNavBar);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -92,6 +113,10 @@ export default function Header() {
     setMobileMoreAnchorEl(null);
   };
 
+  const handleMobileNavBarClose = () => {
+    setMobileNavBar(null);
+  };
+
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
@@ -99,6 +124,10 @@ export default function Header() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileNavBarOpen = (event) => {
+    setMobileNavBar(event.currentTarget);
   };
 
   const menuId = 'primary-search-account-menu';
@@ -128,6 +157,14 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="inherit">
+          <Badge badgeContent={11} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -137,7 +174,43 @@ export default function Header() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Đăng Nhập</p>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
+  const renderMobileNavBar = (
+    <Menu
+      anchorEl={mobileNavBar}
+      anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+      open={isMobileNavBarOpen}
+      onClose={handleMobileNavBarClose}
+    >
+      <MenuItem>
+        <NavLink exact to={match.path} className={classes.link}>
+          <Button
+            className={classes.button}
+            variant={location.pathname === '/' ? 'contained' : 'outlined'}
+            onClick={handleMobileNavBarClose}
+            color="primary"
+          >
+            Home
+          </Button>
+        </NavLink>
+      </MenuItem>
+      <MenuItem>
+        <NavLink to={`${match.path}products`} className={classes.link}>
+          <Button
+            className={classes.button}
+            variant={location.pathname === '/products' ? 'contained' : 'outlined'}
+            onClick={handleMobileNavBarClose}
+            color="primary"
+          >
+            Products
+          </Button>
+        </NavLink>
       </MenuItem>
     </Menu>
   );
@@ -146,14 +219,17 @@ export default function Header() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleMobileNavBarOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+          </div>
           <Typography className={classes.title} variant="h6" noWrap>
             Home
           </Typography>
@@ -172,6 +248,16 @@ export default function Header() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            {/* <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <MailIcon />
+              </Badge>
+            </IconButton> */}
+            <IconButton aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={17} color="secondary">
+                <AddShoppingCart />
+              </Badge>
+            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -196,6 +282,7 @@ export default function Header() {
           </div>
         </Toolbar>
       </AppBar>
+      {renderMobileNavBar}
       {renderMobileMenu}
       {renderMenu}
     </div>

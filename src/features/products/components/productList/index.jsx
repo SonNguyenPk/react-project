@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardActionArea,
@@ -12,9 +13,7 @@ import {
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-
-import ScrollToTop from 'src/components/ScrollToTop';
-
+import SalePriceComponent from 'src/components/SalePrice';
 
 ProductList.propTypes = {
   productList: PropTypes.array,
@@ -35,7 +34,30 @@ const useStyle = makeStyles({
     transition: 'all .5s ease',
     '&:hover': { transform: 'scale(1.05)', zIndex: 99 },
   },
-  cardProduct: { height: '100%', display: 'flex', flexDirection: 'column' },
+  cardProduct: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
+  },
+  cardHeader: {
+    width: '35px',
+    height: '20px',
+
+    backgroundColor: 'red',
+    border: '0px',
+    borderRadius: '3px',
+
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 99,
+
+    fontSize: '0.8rem',
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+  },
   cardItem: {
     display: 'flex',
     flexDirection: 'column',
@@ -74,6 +96,11 @@ function ProductList(props) {
                 style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
                 to={`${match.path}/product-detail/${product.id}`}
               >
+                {product.promotionPercent !== 0 && (
+                  <Typography
+                    className={classes.cardHeader}
+                  >{`-${product.promotionPercent}%`}</Typography>
+                )}
                 <CardActionArea className={classes.cardItem}>
                   <CardMedia
                     component="img"
@@ -98,19 +125,18 @@ function ProductList(props) {
                     {/* <Typography variant="body2" color="textSecondary" component="p">
                       {removeLettersOfString(product.shortDescription, '&nbsp')}
                     </Typography> */}
-                    <Typography variant="h5" color="textSecondary" component="h5">
-                      {new Intl.NumberFormat('de-DE', {
-                        style: 'currency',
-                        currency: 'VND',
-                      }).format(product.originalPrice)}
-                    </Typography>
+                    <SalePriceComponent product={product} />
                   </CardContent>
                 </CardActionArea>
               </Link>
 
               <CardActions>
                 <Link
-                  style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
+                  style={{
+                    textDecoration: 'none',
+                    color: 'black',
+                    flex: '1 0 auto',
+                  }}
                   to={`${match.path}/edit/${product.id}`}
                 >
                   <Button

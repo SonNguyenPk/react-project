@@ -3,7 +3,7 @@ import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import AddEditProduct from './pages/AddEditProduct';
 import ProductDetail from './pages/DetailProduct';
-import ProductsData from './pages/ProductList';
+import ProductsData from './pages/productList';
 
 ProductFeature.propTypes = {};
 
@@ -12,9 +12,8 @@ function ProductFeature(props) {
   return (
     <div>
       <Container>
-        <h2> Product Feature</h2>
         <Switch>
-          <Route exact path={match.path} component={ProductsData} />
+          <Route exact path={`${match.path}`} component={ProductsData} />
           <Route
             path={`${match.path}/product-detail/:productId`}
             component={ProductDetail}

@@ -1,7 +1,6 @@
 import { Box, Button, ButtonGroup, LinearProgress } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useRouteMatch } from 'react-router-dom';
 import productsApi from 'src/api/productApi';
 import ScrollToTop from 'src/components/ScrollToTop';
 import ProductList from '../../components/productList';
@@ -24,9 +23,6 @@ function ProductsData() {
   });
 
   const [loading, setLoading] = useState(false);
-
-  const location = useLocation();
-  const match = useRouteMatch();
 
   useEffect(() => {
     (async () => {
@@ -89,6 +85,7 @@ function ProductsData() {
 
   return (
     <div>
+      <h2> Product List</h2>
       <Box mb={2} display="inline-block">
         <ButtonGroup disableElevation color="primary">
           <Button

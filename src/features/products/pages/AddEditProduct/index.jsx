@@ -2,6 +2,7 @@ import { Box } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import productsApi from 'src/api/productApi';
+import ScrollToTop from 'src/components/ScrollToTop';
 import AddEditForm from '../../components/AddEditForm';
 
 AddEditProduct.propTypes = {};
@@ -35,8 +36,8 @@ function AddEditProduct(props) {
     })();
   }, [params]);
 
-  const handleSubmit = async (formValue) => {
-    console.log(formValue);
+  const handleSubmit = (formValue) => {
+    console.log('formdata', formValue);
   };
   return (
     <Box>
@@ -44,6 +45,7 @@ function AddEditProduct(props) {
       {selectedProduct && (
         <AddEditForm initialValues={selectedProduct} onSubmit={handleSubmit} />
       )}
+      <ScrollToTop />
     </Box>
   );
 }

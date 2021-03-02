@@ -1,6 +1,6 @@
 import { IconButton, makeStyles, Tooltip } from '@material-ui/core';
 import { KeyboardArrowUp } from '@material-ui/icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 ScrollToTop.propTypes = {};
 
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 function ScrollToTop(props) {
   const classes = useStyles();
   const [show, setShow] = useState('none');
+
   window.onscroll = () => {
     const y = window.scrollY;
     if (y > 100) setShow('block');
