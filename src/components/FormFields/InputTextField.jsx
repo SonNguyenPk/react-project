@@ -1,20 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { Controller } from 'react-hook-form';
 
-InputField.propTypes = {
+InputTextField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
-  type: PropTypes.string,
   form: PropTypes.object.isRequired,
 };
 
-InputField.defaultProps = {
+InputTextField.defaultProps = {
   name: '',
   label: '',
-  type: 'text',
 };
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function InputField(props) {
-  const { name, label, type, form } = props;
+function InputTextField(props) {
+  const { name, label, form } = props;
   const formState = form.formState;
   const errorMessage = formState.errors[name]?.message;
   const hasError = !!errorMessage;
@@ -39,7 +37,6 @@ function InputField(props) {
         <TextField
           fullWidth
           className={classes.root}
-          type={type}
           label={label}
           value={value}
           variant="outlined"
@@ -53,4 +50,4 @@ function InputField(props) {
   );
 }
 
-export default InputField;
+export default InputTextField;

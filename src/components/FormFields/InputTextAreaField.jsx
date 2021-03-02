@@ -22,11 +22,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  // viewButton: {
-  //   height: { handleClick },
-  //   overflow: 'hidden',
-  //   transition: 'all 1s linear',
-  // },
 }));
 
 function InputTexAreaField(props) {
@@ -35,6 +30,7 @@ function InputTexAreaField(props) {
   const formState = form.formState;
   const errorMessage = formState.errors[name]?.message;
   const hasError = !!errorMessage;
+  const watchChangeDescription = form.watch(name);
 
   const classes = useStyles();
 
@@ -46,6 +42,7 @@ function InputTexAreaField(props) {
         <Box>
           <TextField
             fullWidth
+            name={name}
             className={classes.root}
             multiline
             rowsMax={10}
@@ -72,7 +69,7 @@ function InputTexAreaField(props) {
               transition: 'all 1s linear',
             }}
           >
-            {parse(value)}
+            {parse(watchChangeDescription)}
             <Button
               variant="contained"
               color="secondary"
