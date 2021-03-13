@@ -9,11 +9,13 @@ InputNumberField.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   form: PropTypes.object.isRequired,
+  showErrorMessage: PropTypes.bool,
 };
 
 InputNumberField.defaultProps = {
   name: '',
   label: '',
+  showErrorMessage: true,
 };
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function InputNumberField(props) {
-  const { name, label, form } = props;
+  const { id, name, label, form, showErrorMessage } = props;
+
   const formState = form.formState;
   const errorMessage = formState.errors[name]?.message;
   const hasError = !!errorMessage;
@@ -38,6 +41,7 @@ function InputNumberField(props) {
       name={name}
       render={({ value, onChange, onBlur }) => (
         <NumberFormat
+          id={id}
           className={classes.root}
           thousandSeparator
           defaultValue={value}
@@ -45,9 +49,8 @@ function InputNumberField(props) {
           customInput={TextField}
           label={label}
           variant="outlined"
-          onBlur={onBlur}
           error={hasError}
-          helperText={errorMessage}
+          helperText={showErrorMessage && errorMessage}
         />
       )}
     />

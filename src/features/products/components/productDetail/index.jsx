@@ -1,16 +1,14 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Grid, Typography } from '@material-ui/core';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import { makeStyles } from '@material-ui/core/styles';
-import { Add, Remove } from '@material-ui/icons';
 import parse from 'html-react-parser';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import InputField from 'src/components/FormFields/InputNumberField';
+import { useDispatch } from 'react-redux';
 import SalePriceComponent from 'src/components/SalePrice';
-import * as yup from 'yup';
+import { addToCart } from 'src/features/ShoppingCarts/cartActions';
+import QuantityForm from '../quantityForm';
 
 ProductItem.propTypes = {
   product: PropTypes.object,
@@ -21,7 +19,6 @@ ProductItem.defaultProps = {
   product: null,
   handleBuyClick: null,
 };
-const schema = yup.object().shape({});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,43 +70,42 @@ const useStyles = makeStyles((theme) => ({
   quantitySection: {
     display: 'flex',
     flexFlow: 'row noWrap',
-    width: '50%',
+    width: '65%',
     margin: '1rem  0px',
     '& div': {
       margin: '0px',
+    },
+    '& input': {
+      flex: '1 0 auto',
+    },
+    '& .button': {
+      width: '50px',
+      height: '50px',
     },
   },
 }));
 
 function ProductItem(props) {
-  const { product, handleBuyClick } = props;
-  console.log({ product });
-  const [showImage, setShowImage] = useState(product.images[0]);
-  const form = useForm({
-    mode: 'onChange',
-    defaultValues: {
-      productQuantity: 0,
-    },
-    resolver: yupResolver(schema),
-  });
+  const { product } = props;
+  const [showImage, setShowImage] = useState(0);
+  const dispatch = useDispatch();
 
   // to convert html string by using parse form html react parser
   const HTMLDescription = product.description;
-
-  const handleSubmitForm = (data) => {
-    if (handleBuyClick) {
-      handleBuyClick(data);
-    }
+  const classes = useStyles();
+  const handleBuyClick = (data, product) => {
+    const action = addToCart(data, product);
+    console.log({ action });
+    dispatch(action);
   };
 
-  const classes = useStyles();
   return (
     <Grid container direction="row">
       <Grid item className={classes.root} xs={12} sm={6}>
         <Box className={classes.image}>
           <Box
             component="img"
-            src={showImage}
+            src={product.images[showImage]}
             alt={product.title}
             maxWidth="60%"
             maxHeight="400px"
@@ -120,7 +116,7 @@ function ProductItem(props) {
           {/* <Button>icon</Button> */}
           {product.images.map((image, idx) => (
             <GridListTile key={`${product.id}.${idx}`} className={classes.imageSlide}>
-              <Button onClick={() => setShowImage(image)}>
+              <Button onClick={() => setShowImage(idx)}>
                 <img src={image} alt={product.title} width="80%" />
               </Button>
             </GridListTile>
@@ -141,31 +137,10 @@ function ProductItem(props) {
               <SalePriceComponent product={product} />
             </Grid>
             <Grid item>
+              {/* form control product quantity  */}
               <Typography>Quantity</Typography>
-              <form
-                noValidate
-                autoCapitalize="off"
-                onSubmit={form.handleSubmit(handleSubmitForm)}
-              >
-                <Box className={classes.quantitySection}>
-                  <Button variant="outlined">
-                    <Add />
-                  </Button>
-                  <InputField
-                    name="productQuantity"
-                    type="number"
-                    form={form}
-                    fullWidth={false}
-                  />
-                  <Button variant="outlined">
-                    <Remove />
-                  </Button>
-                </Box>
-
-                <Button variant="contained" color="secondary" type="submit">
-                  Buy
-                </Button>
-              </form>
+              {/* Form buy product */}
+              <QuantityForm product={product} handleBuyClick={handleBuyClick} />
             </Grid>
           </Grid>
         </Grid>

@@ -1,6 +1,6 @@
 import { IconButton, makeStyles, Tooltip } from '@material-ui/core';
 import { KeyboardArrowUp } from '@material-ui/icons';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 ScrollToTop.propTypes = {};
 

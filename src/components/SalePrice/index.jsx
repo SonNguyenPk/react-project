@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 SalePriceComponent.propTypes = {
   product: PropTypes.object,
@@ -24,12 +24,12 @@ function SalePriceComponent({ product }) {
               currency: 'VND',
             }).format(product.salePrice)}
           </Typography>
-          <Typography variant="body" color="textPrimary" component="p">
+          <Typography variant="body1" color="textPrimary" component="p">
             {`-${product.promotionPercent}%`}
           </Typography>
           <Typography
             style={{ textDecoration: 'line-through' }}
-            variant="body"
+            variant="body1"
             color="textSecondary"
             component="p"
           >

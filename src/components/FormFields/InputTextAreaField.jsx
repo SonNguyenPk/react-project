@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { Box, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Controller } from 'react-hook-form';
 import parse from 'html-react-parser';
-import { Box, Button, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Controller } from 'react-hook-form';
 
 InputTexAreaField.propTypes = {
   name: PropTypes.string.isRequired,

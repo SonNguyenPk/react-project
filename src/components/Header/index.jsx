@@ -12,7 +12,6 @@ import { AddShoppingCart } from '@material-ui/icons';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { useState } from 'react';
 import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
@@ -92,14 +91,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function HeaderComponent({totalQuantity}) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [mobileNavBar, setMobileNavBar] = useState(null);
   const location = useLocation();
   const match = useRouteMatch();
-  console.log({ match, location });
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -157,14 +155,6 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -175,6 +165,19 @@ export default function PrimarySearchAppBar() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
+      </MenuItem>
+      <MenuItem>
+        <NavLink to="/carts" className={classes.link}>
+          <IconButton
+            aria-label="show 17 new notifications"
+            color="default"
+            onClick={handleMobileMenuClose}
+          >
+            <Badge badgeContent={17} color="secondary">
+              <AddShoppingCart />
+            </Badge>
+          </IconButton>
+        </NavLink>
       </MenuItem>
     </Menu>
   );
@@ -248,16 +251,14 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            {/* <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton> */}
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <AddShoppingCart />
-              </Badge>
-            </IconButton>
+            <NavLink to="/carts" className={classes.link}>
+              <IconButton aria-label="show new notifications" color="default">
+                <Badge badgeContent={17} color="secondary">
+                  <AddShoppingCart />
+                </Badge>
+              </IconButton>
+            </NavLink>
+
             <IconButton
               edge="end"
               aria-label="account of current user"

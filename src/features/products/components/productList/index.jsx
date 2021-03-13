@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   CardActionArea,
@@ -98,6 +97,7 @@ function ProductList(props) {
               >
                 {product.promotionPercent !== 0 && (
                   <Typography
+                    variant="body1"
                     className={classes.cardHeader}
                   >{`-${product.promotionPercent}%`}</Typography>
                 )}
@@ -119,12 +119,9 @@ function ProductList(props) {
                   />
 
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h5" component="h6">
                       {product.name}
                     </Typography>
-                    {/* <Typography variant="body2" color="textSecondary" component="p">
-                      {removeLettersOfString(product.shortDescription, '&nbsp')}
-                    </Typography> */}
                     <SalePriceComponent product={product} />
                   </CardContent>
                 </CardActionArea>
