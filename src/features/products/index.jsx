@@ -1,6 +1,7 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import PrimarySearchAppBar from 'src/components/Header';
 import AddEditProduct from './pages/AddEditProduct';
 import ProductDetail from './pages/DetailProduct';
 import ProductsData from './pages/productList';

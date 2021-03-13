@@ -26,15 +26,11 @@ function ProductDetail(props) {
   }, [params.productId]);
   console.log({ product });
 
-  const handleBuyClick = (data) => {
-    console.log({ data });
-  };
-
   // console.log('ehem');
 
   return (
     <div>
-      {product && <ProductItem product={product} handleBuyClick={handleBuyClick} />}
+      {product && <ProductItem product={product} />}
       <ScrollToTop />
     </div>
   );

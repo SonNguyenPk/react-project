@@ -1,7 +1,6 @@
 import { Box, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { PhotoCamera } from '@material-ui/icons';
-import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
@@ -62,9 +61,9 @@ function InputImageField(props) {
   const [initialImages, setInitialImages] = useState(
     form.control.defaultValuesRef.current.images
   );
-  const formState = form.formState;
-  const errorMessage = formState.errors[name]?.message;
-  const hasError = !!errorMessage;
+  // const formState = form.formState;
+  // const errorMessage = formState.errors[name]?.message;
+  // const hasError = !!errorMessage;
 
   const classes = useStyles();
 
@@ -80,7 +79,6 @@ function InputImageField(props) {
   };
 
   const handleRemoveUploadImage = (idxAdd) => {
-    console.log({ idxAdd });
     if (idxAdd >= 0) {
       const newFilesImage = { ...filesImage };
       newFilesImage.fileImages.splice(idxAdd, 1);

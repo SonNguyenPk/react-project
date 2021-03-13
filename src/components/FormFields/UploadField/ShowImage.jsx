@@ -1,5 +1,4 @@
 import {
-  Box,
   Grid,
   GridList,
   GridListTile,

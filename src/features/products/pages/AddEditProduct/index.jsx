@@ -10,7 +10,6 @@ AddEditProduct.propTypes = {};
 function AddEditProduct(props) {
   const match = useRouteMatch();
   const { params } = match;
-  console.log({ params });
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {

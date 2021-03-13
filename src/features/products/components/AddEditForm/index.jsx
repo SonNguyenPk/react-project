@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import InputNumberField from 'src/components/FormFields/InputNumberField';
-import InputField from 'src/components/FormFields/InputNumberField';
 import InputTexAreaField from 'src/components/FormFields/InputTextAreaField';
 import InputTextField from 'src/components/FormFields/InputTextField';
 import InputImageField from 'src/components/FormFields/UploadField/InputImage';
