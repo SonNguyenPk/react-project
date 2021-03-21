@@ -1,18 +1,22 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeFromCart } from './cartActions';
 import CartContent from './component';
 
 function ShoppingCartFeature(props) {
-  const cartProducts = useSelector((state) => state.cart);
-  const totalQuantity = cartProducts.forEach(element => {
-    
-  });
-  console.log({ cartProducts });
+  const cartProducts = useSelector((state) => state.carts);
+  const dispatch = useDispatch();
+  const handleRemoveCartItem = (item) => {
+    const action = removeFromCart(item);
+    console.log({ action });
+    dispatch(action);
+  };
   return (
     <div>
       <Container>
-        <CartContent cartItems={cartProducts} />
+        <h2>Your Shopping Carts</h2>
+        <CartContent cartProducts={cartProducts} onRemove={handleRemoveCartItem} />
       </Container>
     </div>
   );

@@ -2,17 +2,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, FormHelperText } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import InputNumberWithButton from 'src/components/FormFields/InputNumberWithButton';
 import * as yup from 'yup';
 
 QuantityForm.propTypes = {
   product: PropTypes.object.isRequired,
   handleBuyClick: PropTypes.func,
+  value: PropTypes.number,
+  showButton: PropTypes.bool,
 };
 
 QuantityForm.defaultProp = {
   handleBuyClick: null,
+  value: 0,
+  showButton: true,
 };
 
 const schema = yup.object().shape({
@@ -20,20 +23,18 @@ const schema = yup.object().shape({
 });
 
 function QuantityForm(props) {
-  const { product, handleBuyClick } = props;
-  const cartItem = useSelector((state) => state.cart);
-  console.log({ cartItem });
+  const { product, handleBuyClick, value, showButton } = props;
+
   const form = useForm({
     mode: 'onChange',
     defaultValues: {
-      productQuantity: 0,
+      productQuantity: value || 0,
     },
     resolver: yupResolver(schema),
   });
 
   const handleSubmitForm = (data) => {
     if (handleBuyClick) {
-      console.log({ data, product });
       handleBuyClick(data, product);
     }
   };
@@ -44,6 +45,7 @@ function QuantityForm(props) {
   return (
     <form noValidate autoCapitalize="off" onSubmit={form.handleSubmit(handleSubmitForm)}>
       <InputNumberWithButton
+        value={value}
         name="productQuantity"
         type="number"
         form={form}
@@ -53,9 +55,11 @@ function QuantityForm(props) {
       <FormHelperText id="quantity" style={{ color: 'red' }}>
         {errorMessage}
       </FormHelperText>
-      <Button variant="contained" color="secondary" type="submit">
-        Buy
-      </Button>
+      {showButton && (
+        <Button variant="contained" color="secondary" type="submit">
+          Buy
+        </Button>
+      )}
     </form>
   );
 }

@@ -29,7 +29,6 @@ function ProductsData() {
       try {
         setLoading(true);
         const { data, pagination } = await productsApi.getAll(filters);
-
         setLoading(false);
         setProductList(data);
         setPagination(pagination);
@@ -44,6 +43,7 @@ function ProductsData() {
       const message = `Are you sure to remove ${product.name}?`;
       if (window.confirm(message)) {
         await productsApi.remove(product.id);
+        setFilters((x) => ({ ...x }));
       }
     } catch (error) {
       console.log(`Fail to delete ${product.name}`, error);

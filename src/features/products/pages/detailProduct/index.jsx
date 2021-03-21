@@ -8,25 +8,25 @@ ProductDetail.propTypes = {};
 
 function ProductDetail(props) {
   const { params } = useRouteMatch();
-  console.log({ params });
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     (async () => {
-      setLoading(true);
-      const data = await productsApi.getById(params.productId);
-      console.log({ data });
-      setLoading(false);
-      setProduct(data);
+      try {
+        setLoading(true);
+        const data = await productsApi.getById(params.productId);
+        setLoading(false);
+        setProduct(data);
+      } catch (error) {
+        console.log('Fail to load product detail', error);
+      }
     })();
     return () => {
       setProduct({});
     };
   }, [params.productId]);
   console.log({ product });
-
-  // console.log('ehem');
 
   return (
     <div>

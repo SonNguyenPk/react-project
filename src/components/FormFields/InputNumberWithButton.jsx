@@ -46,8 +46,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function InputNumberWithButton(props) {
-  const { name, form, showErrorMessage } = props;
-  const [quantity, setQuantity] = useState(0);
+  const { name, form, showErrorMessage, value } = props;
+  const [quantity, setQuantity] = useState(() => {
+    if (value) return value;
+    return 0;
+  });
   const formState = form.formState;
   const errorMessage = formState.errors[name]?.message;
   const hasError = !!errorMessage;
@@ -61,8 +64,8 @@ function InputNumberWithButton(props) {
         <Box className={classes.quantitySection}>
           <Button
             className={classes.button}
-            onClick={() => {
-              const newQuantity = quantity - 1;
+            onClick={(e) => {
+              const newQuantity = parseInt(quantity) - 1;
               setQuantity(newQuantity);
               onChange(newQuantity);
             }}
@@ -75,17 +78,20 @@ function InputNumberWithButton(props) {
             variant="outlined"
             type="number"
             value={quantity}
-            disabled={true}
             onBlur={onBlur}
             error={hasError}
             helperText={showErrorMessage && errorMessage}
+            onChange={(e) => {
+              onChange(e.target.value);
+              setQuantity(e.target.value);
+            }}
           />
 
           <Button
             className={classes.button}
             onClick={() => {
-              const newQuantity = quantity + 1;
-              setQuantity(quantity + 1);
+              const newQuantity = parseInt(quantity) + 1;
+              setQuantity(newQuantity);
               onChange(newQuantity);
             }}
             disabled={quantity > 30 ? true : false}

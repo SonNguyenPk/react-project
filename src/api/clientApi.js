@@ -4,7 +4,7 @@ const axiosClient = axios.create({
   baseURL: 'http://js-post-api.herokuapp.com/api/',
   headers: {
     'Content-Type': 'application/json',
-    app: 'frontend-ui',
+    // app: 'frontend-ui',
   },
 });
 
