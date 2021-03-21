@@ -26,7 +26,6 @@ function ProductDetail(props) {
       setProduct({});
     };
   }, [params.productId]);
-  console.log({ product });
 
   return (
     <div>

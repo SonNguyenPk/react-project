@@ -12,16 +12,17 @@ const initialState = {
 
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
+    // add to cart from product detail
     case 'cart/addToCart': {
       const newClone = { ...state };
-      console.log({ newClone });
       const newCartItems = [...newClone.cartItems];
-      console.log({ newCartItems });
       const idx = newCartItems.findIndex((item) => item.id === action.payload.id);
+
       const addQuantity = action.payload.productQuantity;
       const addCharge = addQuantity * action.payload.product.salePrice;
       const newTotalQuantity = newClone.totalQuantity + addQuantity;
       const newTotalCharge = newClone.totalCharge + addCharge;
+
       if (idx <= 0) {
         newCartItems.push(action.payload);
 
@@ -35,9 +36,8 @@ export default function cartReducer(state = initialState, action) {
       const newQuantity =
         newCartItems[idx].productQuantity + action.payload.productQuantity;
       const newItem = { ...newCartItems[idx], productQuantity: newQuantity };
-      console.log({ newItem });
       newCartItems[idx] = newItem;
-      console.log({ newCartItems });
+
       const newCloneState = {
         cartItems: newCartItems,
         totalQuantity: newTotalQuantity,
@@ -45,6 +45,34 @@ export default function cartReducer(state = initialState, action) {
       };
       return newCloneState;
     }
+
+    // update/remove product quantity from cart feature
+    case 'cart/updateProductQuantity': {
+      const newClone = { ...state };
+      const newCartItems = [...newClone.cartItems];
+      const idx = newCartItems.findIndex((item) => item.id === action.payload.id);
+
+      const addQuantity = action.payload.productQuantity;
+      const addCharge = addQuantity * action.payload.product.salePrice;
+
+      const deleteQuantity = newCartItems[idx].productQuantity;
+      const deleteCharge = deleteQuantity * newCartItems[idx].product.salePrice;
+      console.log({ addQuantity, addCharge, deleteCharge });
+
+      const newTotalQuantity = newClone.totalQuantity - deleteQuantity + addQuantity;
+      const newTotalCharge = newClone.totalCharge - deleteCharge + addCharge;
+
+      const newItem = { ...newCartItems[idx], productQuantity: addQuantity };
+      newCartItems[idx] = newItem;
+
+      const newCloneState = {
+        cartItems: newCartItems,
+        totalQuantity: newTotalQuantity,
+        totalCharge: newTotalCharge,
+      };
+      return newCloneState;
+    }
+
     case 'cart/removeFromCart': {
       const newClone = { ...state };
       const newCloneCartItem = [...newClone.cartItems];

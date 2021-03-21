@@ -15,7 +15,9 @@ AddEditForm.propTypes = {
   initialValues: PropTypes.object.isRequired,
 };
 
-AddEditForm.defaultProps = {};
+AddEditForm.defaultProps = {
+  
+};
 
 const schema = yup.object().shape({
   name: yup

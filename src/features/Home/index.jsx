@@ -5,8 +5,8 @@ import homePic from 'src/images/home-page.jpg';
 function HomePage(props) {
   return (
     <div>
-      <Typography>Welcome to James Shop</Typography>
       <img src={homePic} alt="home" width="100%" />
+      <Typography variant="h2">Welcome to James Shop</Typography>
     </div>
   );
 }
