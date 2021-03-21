@@ -113,7 +113,7 @@ function InputImageField(props) {
               onChange={(e) => handleOnChange(e, onChange)}
             />
             <label htmlFor="upFile">
-              <Tooltip title="Chosen a file" aria-label="add">
+              <Tooltip title="Chosen your images" aria-label="add">
                 <Box className={classes.button}>
                   <PhotoCamera />
                 </Box>

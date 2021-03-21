@@ -88,71 +88,74 @@ const useStyles = makeStyles((theme) => ({
 function ProductItem(props) {
   const { product } = props;
   const [showImage, setShowImage] = useState(0);
+
   const dispatch = useDispatch();
 
-  // to convert html string by using parse form html react parser
+  // to convert html string by using parse form html react parser product.description
   const HTMLDescription = product.description;
+
   const classes = useStyles();
   const handleBuyClick = (data, product) => {
     const action = addToCart(data, product);
-    console.log({ action });
     dispatch(action);
   };
 
   return (
-    <Grid container direction="row">
-      <Grid item className={classes.root} xs={12} sm={6}>
-        <Box className={classes.image}>
-          <Box
-            component="img"
-            src={product.images[showImage]}
-            alt={product.title}
-            maxWidth="60%"
-            maxHeight="400px"
-          />
-        </Box>
+    <div>
+      <Grid container direction="row">
+        <Grid item className={classes.root} xs={12} sm={6}>
+          <Box className={classes.image}>
+            <Box
+              component="img"
+              src={product.images[showImage]}
+              alt={product.title}
+              maxWidth="60%"
+              maxHeight="400px"
+            />
+          </Box>
 
-        <GridList className={classes.gridList} spacing={1} cols={5} cellHeight={100}>
-          {/* <Button>icon</Button> */}
-          {product.images.map((image, idx) => (
-            <GridListTile key={`${product.id}.${idx}`} className={classes.imageSlide}>
-              <Button onClick={() => setShowImage(idx)}>
-                <img src={image} alt={product.title} width="80%" />
-              </Button>
-            </GridListTile>
-          ))}
-          {/* <Button>icon</Button> */}
-        </GridList>
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <Grid container>
-          <Grid item xs>
-            <Typography variant="h2" component="h2">
-              {product.name}
-            </Typography>
-            <Typography variant="subtitle1" component="p">
-              {product.shortDescription}
-            </Typography>
+          <GridList className={classes.gridList} spacing={1} cols={5} cellHeight={100}>
+            {/* <Button>icon</Button> */}
+            {product.images.map((image, idx) => (
+              <GridListTile key={`${product.id}.${idx}`} className={classes.imageSlide}>
+                <Button onClick={() => setShowImage(idx)}>
+                  <img src={image} alt={product.title} width="80%" />
+                </Button>
+              </GridListTile>
+            ))}
+            {/* <Button>icon</Button> */}
+          </GridList>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Grid container>
             <Grid item xs>
-              <SalePriceComponent product={product} />
-            </Grid>
-            <Grid item>
-              {/* form control product quantity  */}
-              <Typography>Quantity</Typography>
-              {/* Form buy product */}
-              <QuantityForm
-                product={product}
-                handleBuyClick={handleBuyClick}
-                showButton={true}
-              />
+              <Typography variant="h2" component="h2">
+                {product.name}
+              </Typography>
+              <Typography variant="subtitle1" component="p">
+                {product.shortDescription}
+              </Typography>
+              <Grid item xs>
+                <SalePriceComponent product={product} />
+              </Grid>
+              <Grid item>
+                {/* form control product quantity  */}
+                <Typography>Quantity</Typography>
+                <QuantityForm
+                  product={product}
+                  handleBuyClick={handleBuyClick}
+                  showButton={true}
+                  buttonName="Buy"
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
+        <Grid item className={classes.gridDescription}>
+          {parse(HTMLDescription)}
+        </Grid>
       </Grid>
-      <Grid item className={classes.gridDescription}>
-        {parse(HTMLDescription)}
-      </Grid>
-    </Grid>
+    </div>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Button, Icon, Tooltip } from '@material-ui/core';
+import { Button, Tooltip } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,30 +15,20 @@ import SearchIcon from '@material-ui/icons/Search';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
-import HomeIcon from '@material-ui/icons/Home';
-import InputTextField from '../FormFields/InputTextField';
 
-HeaderComponent.propTypes = {
+HeaderMobile.propTypes = {
   totalQuantity: PropTypes.number,
 };
 
-HeaderComponent.defaultProps = {
+HeaderMobile.defaultProps = {
   totalQuantity: 0,
 };
 
 const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
-
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-
-  homeButton: {
-    display: 'none',
+  root: {
+    display: 'block',
     [theme.breakpoints.up('md')]: {
-      display: 'block',
+      display: 'none',
     },
   },
   search: {
@@ -51,10 +41,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: 'auto',
-    },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -74,45 +60,14 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
+
   sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
   },
   link: {
     textDecoration: 'none',
-    [theme.breakpoints.up('md')]: {
-      width: '100%',
-    },
-  },
-
-  navBarOnDesktop: {
-    display: 'flex',
-    flexFlow: 'row noWrap',
-    flexGrow: 1,
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    },
-    '&  button': {
-      width: '100%',
-      border: 'none',
-      color: 'blue',
-      '&': {
-        textAlign: 'left',
-        color: 'white',
-      },
-    },
+    color: 'black',
   },
   navBarOnMobile: {
     '& button': {
@@ -123,27 +78,18 @@ const useStyles = makeStyles((theme) => ({
   growMobile: {
     display: 'block',
     flexGrow: 1,
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
   },
 }));
 
-export default function HeaderComponent({ totalQuantity }) {
+export default function HeaderMobile({ totalQuantity }) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [mobileNavBar, setMobileNavBar] = useState(null);
   const location = useLocation();
   const match = useRouteMatch();
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isMobileNavBarOpen = Boolean(mobileNavBar);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -153,11 +99,6 @@ export default function HeaderComponent({ totalQuantity }) {
     setMobileNavBar(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -165,22 +106,6 @@ export default function HeaderComponent({ totalQuantity }) {
   const handleMobileNavBarOpen = (event) => {
     setMobileNavBar(event.currentTarget);
   };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
@@ -193,17 +118,17 @@ export default function HeaderComponent({ totalQuantity }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <NavLink to="/addProduct" className={classes.link}>
+      <NavLink to="/addProduct" className={classes.link}>
+        <MenuItem>
           <Tooltip title="Add new product" interactive>
             <IconButton>
               <AddCircle color="action" />
             </IconButton>
           </Tooltip>
-        </NavLink>
-        <p>Add</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+          <p>Add</p>
+        </MenuItem>
+      </NavLink>
+      <MenuItem>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -214,8 +139,8 @@ export default function HeaderComponent({ totalQuantity }) {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <MenuItem>
-        <NavLink to="/carts" className={classes.link}>
+      <NavLink to="/carts" className={classes.link}>
+        <MenuItem>
           <IconButton
             aria-label="show 17 new notifications"
             color="default"
@@ -225,9 +150,9 @@ export default function HeaderComponent({ totalQuantity }) {
               <AddShoppingCart />
             </Badge>
           </IconButton>
-        </NavLink>
-        <p>Carts</p>
-      </MenuItem>
+          <p>Carts</p>
+        </MenuItem>
+      </NavLink>
     </Menu>
   );
   const renderMobileNavBar = (
@@ -281,7 +206,7 @@ export default function HeaderComponent({ totalQuantity }) {
   );
 
   return (
-    <div className={classes.grow}>
+    <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <div className={classes.sectionMobile}>
@@ -295,12 +220,6 @@ export default function HeaderComponent({ totalQuantity }) {
               <MenuIcon />
             </IconButton>
           </div>
-          <NavLink exact to={match.path} className={classes.homeButton}>
-            <Button>
-              <HomeIcon color="action" />
-            </Button>
-          </NavLink>
-
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -314,64 +233,6 @@ export default function HeaderComponent({ totalQuantity }) {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          {/* Navigation bar for desktop version */}
-          <div className={classes.navBarOnDesktop}>
-            <NavLink exact to={match.path} className={classes.link}>
-              <Button
-                className={classes.button}
-                variant={location.pathname === '/' ? 'contained' : 'outlined'}
-                onClick={handleMobileNavBarClose}
-              >
-                Home
-              </Button>
-            </NavLink>
-            <NavLink to="/products" className={classes.link}>
-              <Button
-                className={classes.button}
-                variant={location.pathname === '/products' ? 'contained' : 'outlined'}
-                onClick={handleMobileNavBarClose}
-              >
-                Products
-              </Button>
-            </NavLink>
-            <NavLink to="/carts" className={classes.link}>
-              <Button
-                className={classes.button}
-                variant={location.pathname === '/carts' ? 'contained' : 'outlined'}
-                onClick={handleMobileNavBarClose}
-              >
-                Carts
-              </Button>
-            </NavLink>
-          </div>
-          {/* Desktop */}
-          <div className={classes.sectionDesktop}>
-            <NavLink to="/addProduct" className={classes.link}>
-              <Tooltip title="Add new product" interactive>
-                <IconButton>
-                  <AddCircle color="action" />
-                </IconButton>
-              </Tooltip>
-            </NavLink>
-            <NavLink to="/carts" className={classes.link}>
-              <IconButton aria-label="show new notifications" color="default">
-                <Badge badgeContent={totalQuantity} color="secondary">
-                  <AddShoppingCart />
-                </Badge>
-              </IconButton>
-            </NavLink>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-          {/* Mobile */}
           <div className={classes.growMobile} />
           <div className={classes.sectionMobile}>
             <IconButton
@@ -388,7 +249,6 @@ export default function HeaderComponent({ totalQuantity }) {
       </AppBar>
       {renderMobileNavBar}
       {renderMobileMenu}
-      {renderMenu}
     </div>
   );
 }

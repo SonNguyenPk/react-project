@@ -1,8 +1,9 @@
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, IconButton, Tooltip, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -20,8 +21,16 @@ CartContent.defaultProps = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    position: 'relative',
+  },
+  card: {
     display: 'flex',
     padding: '1rem',
+  },
+  removeButton: {
+    position: 'absolute',
+    top: '0',
+    right: '0',
   },
   details: {
     display: 'flex',
@@ -46,19 +55,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CartContent({ cartProducts, onRemove }) {
+function CartContent({ cartProducts, onRemove, onUpdate }) {
   const cartItems = cartProducts.cartItems;
   const newCart = cartItems?.filter((item) => !!item.id);
   const classes = useStyles();
-  const theme = useTheme();
+
+  const handleUpdateClick = (data, product) => {
+    if (onUpdate) {
+      onUpdate(data, product);
+    }
+  };
   return (
     <Grid>
       <Grid container spacing={2}>
         {newCart.length < 1 && <Typography>Not thing in your shopping cart</Typography>}
         {newCart.length >= 1 &&
           newCart.map((item) => (
-            <Grid item xs={12} md={6} lg={4} key={item.id}>
-              <Card className={classes.root}>
+            <Grid item xs={12} md={6} lg={4} key={item.id} className={classes.root}>
+              <Card className={classes.card}>
                 <div className={classes.details}>
                   <Link
                     style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
@@ -75,17 +89,10 @@ function CartContent({ cartProducts, onRemove }) {
                     <QuantityForm
                       product={item}
                       value={item.productQuantity}
-                      showButton={false}
+                      showButton={true}
+                      buttonName="Update"
+                      handleUpdateClick={handleUpdateClick}
                     />
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={() => {
-                        onRemove && onRemove(item);
-                      }}
-                    >
-                      Remove
-                    </Button>
                   </div>
                 </div>
                 <CardMedia
@@ -100,6 +107,17 @@ function CartContent({ cartProducts, onRemove }) {
                     return;
                   }}
                 />
+                <Tooltip title="Remove" arrow placement="top">
+                  <IconButton
+                    aria-label="delete"
+                    className={classes.removeButton}
+                    onClick={() => {
+                      onRemove && onRemove(item);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
               </Card>
             </Grid>
           ))}
