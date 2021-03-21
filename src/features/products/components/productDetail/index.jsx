@@ -140,7 +140,11 @@ function ProductItem(props) {
               {/* form control product quantity  */}
               <Typography>Quantity</Typography>
               {/* Form buy product */}
-              <QuantityForm product={product} handleBuyClick={handleBuyClick} />
+              <QuantityForm
+                product={product}
+                handleBuyClick={handleBuyClick}
+                showButton={true}
+              />
             </Grid>
           </Grid>
         </Grid>

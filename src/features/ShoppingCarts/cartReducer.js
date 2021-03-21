@@ -1,5 +1,5 @@
 const initialState = {
-  cartItem: [
+  cartItems: [
     {
       id: '',
       productQuantity: 0,
@@ -13,44 +13,56 @@ const initialState = {
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case 'cart/addToCart': {
-      // const newCloneState = [...state];
-      const newCartItem = [...state.cartItem];
-      const idx = newCartItem.findIndex((item) => item.id === action.payload.id);
+      const newClone = { ...state };
+      console.log({ newClone });
+      const newCartItems = [...newClone.cartItems];
+      console.log({ newCartItems });
+      const idx = newCartItems.findIndex((item) => item.id === action.payload.id);
       const addQuantity = action.payload.productQuantity;
       const addCharge = addQuantity * action.payload.product.salePrice;
-      const newTotalQuantity = state.totalQuantity + addQuantity;
-      const newTotalCharge = state.totalCharge + addCharge;
-      console.log({ idx });
+      const newTotalQuantity = newClone.totalQuantity + addQuantity;
+      const newTotalCharge = newClone.totalCharge + addCharge;
       if (idx <= 0) {
-        newCartItem.push(action.payload);
+        newCartItems.push(action.payload);
 
         const newCloneState = {
-          ...state,
-          cartItem: newCartItem,
+          cartItems: newCartItems,
           totalQuantity: newTotalQuantity,
           totalCharge: newTotalCharge,
         };
         return newCloneState;
       }
-
       const newQuantity =
-        newCartItem[idx].productQuantity + action.payload.productQuantity;
-      console.log({ newQuantity });
-      const newItem = { ...newCartItem[idx], productQuantity: newQuantity };
-      newCartItem[idx] = newItem;
-
+        newCartItems[idx].productQuantity + action.payload.productQuantity;
+      const newItem = { ...newCartItems[idx], productQuantity: newQuantity };
+      console.log({ newItem });
+      newCartItems[idx] = newItem;
+      console.log({ newCartItems });
       const newCloneState = {
-        ...state,
-        cartItem: newCartItem,
+        cartItems: newCartItems,
         totalQuantity: newTotalQuantity,
         totalCharge: newTotalCharge,
       };
       return newCloneState;
     }
     case 'cart/removeFromCart': {
-      const newState = [...state];
-      const productId = action.payload.id;
-      return newState.filter((product) => productId !== product.id);
+      const newClone = { ...state };
+      const newCloneCartItem = [...newClone.cartItems];
+
+      const newTotalQuantity = newClone.totalQuantity - action.payload.productQuantity;
+      const salePriceProduct = action.payload.product.salePrice;
+      const chargeDecrement = salePriceProduct * action.payload.productQuantity;
+      const newTotalCharge = newClone.totalCharge - chargeDecrement;
+
+      const newCartItem = newCloneCartItem.filter(
+        (product) => action.payload.id !== product.id
+      );
+      return {
+        ...state,
+        cartItems: newCartItem,
+        totalQuantity: newTotalQuantity,
+        totalCharge: newTotalCharge,
+      };
     }
     default:
       return state;

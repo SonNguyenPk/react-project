@@ -14,29 +14,31 @@ function AddEditProduct(props) {
 
   useEffect(() => {
     (async () => {
-      if (!params.productId) {
-        setSelectedProduct({
-          name: '',
-          shortDescription: '',
-          salePrice: 0,
-          originalPrice: 0,
-          promotionPercent: 0,
-          images: [],
-        });
-        return;
+      if (params.productId) {
+        try {
+          const product = await productsApi.getById(params.productId);
+          setSelectedProduct(product);
+          console.log({ selectedProduct });
+        } catch (error) {
+          console.log('Fail to load product');
+        }
       }
-      try {
-        const product = await productsApi.getById(params.productId);
-        setSelectedProduct(product);
-        console.log({ selectedProduct });
-      } catch (error) {
-        console.log('Fail to load product');
-      }
+      return setSelectedProduct({
+        name: '',
+        description: '',
+        salePrice: 0,
+        originalPrice: 0,
+        promotionPercent: 0,
+        images: [],
+      });
     })();
   }, [params]);
 
-  const handleSubmit = (formValue) => {
-    console.log('formdata', formValue);
+  const handleSubmit = async (formValue) => {
+    try {
+      console.log('formdata', formValue);
+      // await productsApi.add(formValue);
+    } catch (error) {}
   };
   return (
     <Box>

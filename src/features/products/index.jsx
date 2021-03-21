@@ -1,7 +1,7 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import PrimarySearchAppBar from 'src/components/Header';
+import PageNotFound from 'src/components/PageNotFound';
 import AddEditProduct from './pages/AddEditProduct';
 import ProductDetail from './pages/DetailProduct';
 import ProductsData from './pages/productList';
@@ -10,6 +10,7 @@ ProductFeature.propTypes = {};
 
 function ProductFeature(props) {
   const match = useRouteMatch();
+  console.log('match main', match);
   return (
     <div>
       <Container>
@@ -19,8 +20,8 @@ function ProductFeature(props) {
             path={`${match.path}/product-detail/:productId`}
             component={ProductDetail}
           />
-          <Route path={`${match.path}/add`} component={AddEditProduct} />
           <Route path={`${match.path}/edit/:productId`} component={AddEditProduct} />
+          <Route component={PageNotFound} />
         </Switch>
       </Container>
     </div>
