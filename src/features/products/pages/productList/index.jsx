@@ -149,16 +149,18 @@ function ProductsData() {
         onRemove={handleRemove}
         onAddEdit={handleAddEdit}
       />
-      <Box mt={4} mb={4} display="flex" justifyContent="center">
-        <Pagination
-          count={totalPages}
-          hidePrevButton={pagination._page <= 1}
-          hideNextButton={pagination._page >= totalPages}
-          color="primary"
-          page={filters._page}
-          onChange={handlePaginationClick}
-        />
-      </Box>
+      {!loading && (
+        <Box mt={4} mb={4} display="flex" justifyContent="center">
+          <Pagination
+            count={totalPages}
+            hidePrevButton={pagination._page <= 1}
+            hideNextButton={pagination._page >= totalPages}
+            color="primary"
+            page={filters._page}
+            onChange={handlePaginationClick}
+          />
+        </Box>
+      )}
       <ScrollToTop />
     </div>
   );

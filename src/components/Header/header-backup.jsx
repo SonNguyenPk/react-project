@@ -16,6 +16,7 @@
 // import PropTypes from 'prop-types';
 // import React, { useState } from 'react';
 // import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
+// import { MobileNavigationBar } from './NavigationBar';
 
 // HeaderComponent.propTypes = {
 //   totalQuantity: PropTypes.number,
@@ -229,55 +230,55 @@
 //       </MenuItem>
 //     </Menu>
 //   );
-//   const renderMobileNavBar = (
-//     <Menu
-//       className={classes.navBarOnMobile}
-//       anchorEl={mobileNavBar}
-//       anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-//       id={mobileMenuId}
-//       keepMounted
-//       transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-//       open={isMobileNavBarOpen}
-//       onClose={handleMobileNavBarClose}
-//     >
-//       <MenuItem>
-//         <NavLink exact to={match.path} className={classes.link}>
-//           <Button
-//             className={classes.button}
-//             variant={location.pathname === '/' ? 'contained' : 'outlined'}
-//             onClick={handleMobileNavBarClose}
-//             color="primary"
-//           >
-//             Home
-//           </Button>
-//         </NavLink>
-//       </MenuItem>
-//       <MenuItem>
-//         <NavLink to={`${match.path}products`} className={classes.link}>
-//           <Button
-//             className={classes.button}
-//             variant={location.pathname === '/products' ? 'contained' : 'outlined'}
-//             onClick={handleMobileNavBarClose}
-//             color="primary"
-//           >
-//             Products
-//           </Button>
-//         </NavLink>
-//       </MenuItem>
-//       <MenuItem>
-//         <NavLink to="/carts" className={classes.link}>
-//           <Button
-//             className={classes.button}
-//             variant={location.pathname === '/carts' ? 'contained' : 'outlined'}
-//             onClick={handleMobileNavBarClose}
-//             color="primary"
-//           >
-//             Carts
-//           </Button>
-//         </NavLink>
-//       </MenuItem>
-//     </Menu>
-//   );
+//   //   const renderMobileNavBar = (
+//   //     <Menu
+//   //       className={classes.navBarOnMobile}
+//   //       anchorEl={mobileNavBar}
+//   //       anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+//   //       id={mobileMenuId}
+//   //       keepMounted
+//   //       transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+//   //       open={isMobileNavBarOpen}
+//   //       onClose={handleMobileNavBarClose}
+//   //     >
+//   //       <MenuItem>
+//   //         <NavLink exact to={match.path} className={classes.link}>
+//   //           <Button
+//   //             className={classes.button}
+//   //             variant={location.pathname === '/' ? 'contained' : 'outlined'}
+//   //             onClick={handleMobileNavBarClose}
+//   //             color="primary"
+//   //           >
+//   //             Home
+//   //           </Button>
+//   //         </NavLink>
+//   //       </MenuItem>
+//   //       <MenuItem>
+//   //         <NavLink to={`${match.path}products`} className={classes.link}>
+//   //           <Button
+//   //             className={classes.button}
+//   //             variant={location.pathname === '/products' ? 'contained' : 'outlined'}
+//   //             onClick={handleMobileNavBarClose}
+//   //             color="primary"
+//   //           >
+//   //             Products
+//   //           </Button>
+//   //         </NavLink>
+//   //       </MenuItem>
+//   //       <MenuItem>
+//   //         <NavLink to="/carts" className={classes.link}>
+//   //           <Button
+//   //             className={classes.button}
+//   //             variant={location.pathname === '/carts' ? 'contained' : 'outlined'}
+//   //             onClick={handleMobileNavBarClose}
+//   //             color="primary"
+//   //           >
+//   //             Carts
+//   //           </Button>
+//   //         </NavLink>
+//   //       </MenuItem>
+//   //     </Menu>
+//   //   );
 
 //   return (
 //     <div className={classes.grow}>
@@ -313,7 +314,6 @@
 //               inputProps={{ 'aria-label': 'search' }}
 //             />
 //           </div>
-//           {/* Navigation bar for desktop version */}
 //           <div className={classes.navBarOnDesktop}>
 //             <NavLink exact to={match.path} className={classes.link}>
 //               <Button
@@ -385,7 +385,7 @@
 //           </div>
 //         </Toolbar>
 //       </AppBar>
-//       {renderMobileNavBar}
+//       <MobileNavigationBar isNavBarOpen={mobileNavBar} />
 //       {renderMobileMenu}
 //       {renderMenu}
 //     </div>
