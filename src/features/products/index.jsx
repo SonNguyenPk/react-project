@@ -15,7 +15,7 @@ function ProductFeature(props) {
     <div>
       <Container>
         <Switch>
-          <Route exact path={`${match.path}`} component={ProductsData} />
+          <Route path={`${match.path}`} component={ProductsData} />
           <Route
             path={`${match.path}/product-detail/:productId`}
             component={ProductDetail}
