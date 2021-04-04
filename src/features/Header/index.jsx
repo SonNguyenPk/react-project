@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import HeaderComponent from 'src/components/Header/Header';
+import HeaderComponent from 'src/components/Header';
 
 function Header(props) {
   const carts = useSelector((state) => state.carts);
