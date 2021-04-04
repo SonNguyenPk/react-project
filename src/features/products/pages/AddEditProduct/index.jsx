@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import productsApi from 'src/api/productApi';
@@ -41,13 +41,15 @@ function AddEditProduct(props) {
     } catch (error) {}
   };
   return (
-    <Box>
-      <h2>Add new Product</h2>
-      {selectedProduct && (
-        <AddEditForm initialValues={selectedProduct} onSubmit={handleSubmit} />
-      )}
-      <ScrollToTop />
-    </Box>
+    <Container>
+      <Box>
+        <h2>Add new Product</h2>
+        {selectedProduct && (
+          <AddEditForm initialValues={selectedProduct} onSubmit={handleSubmit} />
+        )}
+        <ScrollToTop />
+      </Box>
+    </Container>
   );
 }
 

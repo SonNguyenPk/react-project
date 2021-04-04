@@ -21,6 +21,7 @@ function ProductFeature(props) {
             component={ProductDetail}
           />
           <Route path={`${match.path}/edit/:productId`} component={AddEditProduct} />
+          <Route path={`${match.path}/addProduct`} component={AddEditProduct} />
           <Route component={PageNotFound} />
         </Switch>
       </Container>
