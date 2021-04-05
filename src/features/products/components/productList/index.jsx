@@ -74,6 +74,7 @@ const useStyle = makeStyles({
 function ProductList(props) {
   const { productList, onEdit, onRemove } = props;
   const match = useRouteMatch();
+  console.log({ match });
   const classes = useStyle();
 
   return (

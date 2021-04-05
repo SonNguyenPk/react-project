@@ -1,15 +1,8 @@
-import {
-  Box,
-  Button,
-  createMuiTheme,
-  makeStyles,
-  ThemeProvider,
-  Typography,
-} from '@material-ui/core';
-import React from 'react';
-import homePic from 'src/images/home-page.jpg';
+import { Box, Button, makeStyles, Typography } from '@material-ui/core';
 import blueGrey from '@material-ui/core/colors/blueGrey';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
+import homePic from 'src/asset/images/home-page.jpg';
 
 const useStyles = makeStyles((theme) => ({
   link: {
