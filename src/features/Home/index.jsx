@@ -31,10 +31,10 @@ function HomePage(props) {
         height="800px"
       >
         <Typography variant="h2">Welcome to James Shop</Typography>
-        <Typography variant="body" display="block">
+        <Typography variant="body1" display="block">
           Make you feel happy with every order!!!😘😘😘
         </Typography>
-        <Typography variant="body" display="block">
+        <Typography variant="body1" display="block">
           Shopping is a passion, Passion is a kind of fruit. Therefore, Shopping is so
           good for health 😍😍❤❤
         </Typography>

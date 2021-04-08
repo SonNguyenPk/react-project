@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { NavLink, useLocation, useRouteMatch } from 'react-router-dom';
 import { Box, Button, makeStyles, Menu, MenuItem } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 NavigationBar.propTypes = {
   mobileNavBar: PropTypes.any,
@@ -54,9 +54,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function NavigationBar({ mobileNavBar, handleClose }) {
   const classes = useStyles();
-
-  const location = useLocation();
-  const match = useRouteMatch();
 
   const isOpen = Boolean(mobileNavBar);
 
