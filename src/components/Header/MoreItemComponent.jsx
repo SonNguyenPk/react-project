@@ -1,6 +1,3 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 import {
   Badge,
   IconButton,
@@ -10,6 +7,9 @@ import {
   Tooltip,
 } from '@material-ui/core';
 import { AccountCircle, AddCircle, AddShoppingCart } from '@material-ui/icons';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 MoreItemComponent.propTypes = {
   mobileMoreItem: PropTypes.any,

@@ -1,6 +1,6 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
-import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import PageNotFound from 'src/components/PageNotFound';
 import AddEditProduct from './pages/AddEditProduct';
 import ProductDetail from './pages/DetailProduct';
