@@ -2,9 +2,9 @@ import { Container } from '@material-ui/core';
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import PageNotFound from 'src/components/PageNotFound';
-import AddEditProduct from './pages/AddEditProduct';
-import ProductDetail from './pages/DetailProduct';
-import ProductsData from './pages/productList';
+import AddEditProduct from 'src/features/products/pages/AddEditProduct';
+import ProductDetail from 'src/features/products/pages/DetailProduct';
+import ProductsData from 'src/features/products//pages/productList';
 
 ProductFeature.propTypes = {};
 
