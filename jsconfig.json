@@ -3,8 +3,8 @@
 		"moduleResolution": "node",
 		"module": "es6",
 		"target": "es6",
-		"baseUrl": ".",
-		"paths": { "src/*": ["src/*"] }
+		"baseUrl": "."
+		// "paths": { "src/*": ["src/*"] }
 	},
 	"include": ["src/**/*"]
 }
