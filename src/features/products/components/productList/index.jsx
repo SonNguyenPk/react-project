@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import SalePriceComponent from 'src/components/SalePrice';
+import { router } from 'src/utilise/routerLink';
 
 ProductList.propTypes = {
   productList: PropTypes.array,
@@ -93,7 +94,7 @@ function ProductList(props) {
             <Card className={classes.cardProduct}>
               <Link
                 style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
-                to={`${match.path}/product-detail/${product.id}`}
+                to={`${router.productDetail}/${product.id}`}
               >
                 {product.promotionPercent !== 0 && (
                   <Typography

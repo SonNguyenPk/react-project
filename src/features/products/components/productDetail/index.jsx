@@ -107,8 +107,8 @@ function ProductItem(props) {
           <Box className={classes.image}>
             <Box
               component="img"
-              src={product.images[showImage]}
-              alt={product.title}
+              src={product?.images?.[showImage]}
+              alt={product?.title}
               maxWidth="60%"
               maxHeight="400px"
             />

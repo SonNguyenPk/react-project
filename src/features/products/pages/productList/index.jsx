@@ -17,7 +17,7 @@ function ProductsData() {
 
   const [filters, setFilters] = useState({
     _page: 1,
-    _limit: 8,
+    _limit: 18,
     _sort: 'updatedAt',
     _order: 'asc',
   });

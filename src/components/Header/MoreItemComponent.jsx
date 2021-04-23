@@ -10,6 +10,7 @@ import { AccountCircle, AddCircle, AddShoppingCart } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { router } from 'src/utilise/routerLink';
 
 MoreItemComponent.propTypes = {
   mobileMoreItem: PropTypes.any,
@@ -64,7 +65,7 @@ function MoreItemComponent({ totalQuantity, mobileMoreItem, handleClose }) {
       onClose={handleMoreItemClose}
     >
       <MenuItem onClick={handleMoreItemClose}>
-        <NavLink to="/addProduct" className={classes.link}>
+        <NavLink to={router.addProduct} className={classes.link}>
           <Tooltip title="Add new product" interactive>
             <IconButton>
               <AddCircle color="action" />
@@ -85,7 +86,7 @@ function MoreItemComponent({ totalQuantity, mobileMoreItem, handleClose }) {
         <p>Profile</p>
       </MenuItem>
       <MenuItem onClick={handleMoreItemClose}>
-        <NavLink to="/carts" className={classes.link}>
+        <NavLink to={router.carts} className={classes.link}>
           <IconButton aria-label="show 17 new notifications" color="default">
             <Badge badgeContent={totalQuantity} color="secondary">
               <AddShoppingCart />
@@ -98,14 +99,14 @@ function MoreItemComponent({ totalQuantity, mobileMoreItem, handleClose }) {
   );
   return (
     <div className={classes.sectionDesktop}>
-      <NavLink to="/addProduct" className={classes.link}>
+      <NavLink to={router.addProduct} className={classes.link}>
         <Tooltip title="Add new product" interactive>
           <IconButton>
             <AddCircle color="action" />
           </IconButton>
         </Tooltip>
       </NavLink>
-      <NavLink to="/carts" className={classes.link}>
+      <NavLink to={router.carts} className={classes.link}>
         <IconButton aria-label="show new notifications" color="default">
           <Badge badgeContent={totalQuantity} color="secondary">
             <AddShoppingCart />

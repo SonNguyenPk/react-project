@@ -6,12 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './app/store';
+import { CssBaseline } from '@material-ui/core';
 
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
       <BrowserRouter>
-        <App />
+        <CssBaseline>
+          <App />
+        </CssBaseline>
       </BrowserRouter>
     </React.StrictMode>
   </Provider>,
