@@ -2,6 +2,7 @@ import { Box, Button, makeStyles, Menu, MenuItem } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { router } from 'src/utilise/routerLink';
 
 NavigationBar.propTypes = {
   mobileNavBar: PropTypes.any,
@@ -76,21 +77,21 @@ export function NavigationBar({ mobileNavBar, handleClose }) {
       onClose={handleCloseNavBar}
     >
       <MenuItem>
-        <NavLink exact to="/" className={classes.link}>
+        <NavLink exact to={router.home} className={classes.link}>
           <Button className={classes.button} onClick={handleCloseNavBar} color="primary">
             Home
           </Button>
         </NavLink>
       </MenuItem>
       <MenuItem>
-        <NavLink to="/products" className={classes.link}>
+        <NavLink to={router.products} className={classes.link}>
           <Button className={classes.button} onClick={handleCloseNavBar} color="primary">
             Products
           </Button>
         </NavLink>
       </MenuItem>
       <MenuItem>
-        <NavLink to="/carts" className={classes.link}>
+        <NavLink to={router.carts} className={classes.link}>
           <Button className={classes.button} onClick={handleCloseNavBar} color="primary">
             Carts
           </Button>
@@ -102,13 +103,13 @@ export function NavigationBar({ mobileNavBar, handleClose }) {
   return (
     <div>
       <Box className={classes.navBarOnDesktop}>
-        <NavLink exact to="/" className={classes.link}>
+        <NavLink exact to={router.home} className={classes.link}>
           <Button className={classes.button}>Home</Button>
         </NavLink>
-        <NavLink to="/products" className={classes.link}>
+        <NavLink to={router.products} className={classes.link}>
           <Button className={classes.button}>Products</Button>
         </NavLink>
-        <NavLink to="/carts" className={classes.link}>
+        <NavLink to={router.carts} className={classes.link}>
           <Button className={classes.button}>Carts</Button>
         </NavLink>
       </Box>

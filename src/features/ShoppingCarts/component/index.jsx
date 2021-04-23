@@ -9,6 +9,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SalePriceComponent from 'src/components/SalePrice';
 import QuantityForm from 'src/features/products/components/quantityForm';
+import { router } from 'src/utilise/routerLink';
 
 CartContent.propTypes = {
   cartItems: PropTypes.object,
@@ -76,7 +77,7 @@ function CartContent({ cartProducts, onRemove, onUpdate }) {
                 <div className={classes.details}>
                   <Link
                     style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
-                    to={`/products/product-detail/${item.id}`}
+                    to={`${router.productDetail}/${item.id}`}
                   >
                     <CardContent className={classes.content}>
                       <Typography component="h5" variant="h5">

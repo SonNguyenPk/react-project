@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, Container } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -12,9 +12,11 @@ import { NavLink, useRouteMatch } from 'react-router-dom';
 import MoreItemComponent from './MoreItemComponent';
 import { NavigationBar } from './NavigationBar';
 import SearchItem from './SearchComponent';
+import { router } from 'src/utilise/routerLink';
 
 HeaderComponent.propTypes = {
   totalQuantity: PropTypes.number,
+  handleSearch: PropTypes.func,
 };
 
 HeaderComponent.defaultProps = {
@@ -25,22 +27,14 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
+  headerBar: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    height: '2rem',
+  },
 
   homeButton: {
     display: 'block',
-  },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    // [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-    // },
   },
 
   navBarOnDesktop: {
@@ -72,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HeaderComponent({ totalQuantity }) {
+export default function HeaderComponent({ totalQuantity, handleSearch, searchResult }) {
   const classes = useStyles();
   const [mobileNavBar, setMobileNavBar] = useState(null);
   const [mobileMoreItem, setMobileMoreItem] = useState(null);
@@ -100,45 +94,53 @@ export default function HeaderComponent({ totalQuantity }) {
   return (
     <div className={classes.grow}>
       <AppBar position="static">
-        <Toolbar>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-              onClick={(e) => handleMobileNavBarOpen(e)}
-            >
-              <MenuIcon />
-            </IconButton>
-          </div>
+        <Container>
+          <Toolbar className={classes.headerBar}>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="open drawer"
+                onClick={(e) => handleMobileNavBarOpen(e)}
+              >
+                <MenuIcon />
+              </IconButton>
+            </div>
 
-          <NavLink exact to={match.path} className={classes.homeButton}>
-            <Button>
-              <HomeIcon color="action" />
-            </Button>
-          </NavLink>
-          <SearchItem />
-          <div className={classes.grow}></div>
-          <NavigationBar mobileNavBar={mobileNavBar} handleClose={handleClose} />
-          <div className={classes.grow}></div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={(e) => handleOpenMoreItem(e)}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-          <MoreItemComponent
-            mobileMoreItem={mobileMoreItem}
-            handleClose={handleMoreItemClose}
-            totalQuantity={totalQuantity}
-          />
-        </Toolbar>
+            <NavLink exact to={router.home} className={classes.homeButton}>
+              <Button>
+                <HomeIcon color="action" />
+              </Button>
+            </NavLink>
+            {/* Search Bar */}
+            <SearchItem
+              handleOnChange={(q) => handleSearch && handleSearch(q)}
+              searchResult={searchResult}
+            />
+
+            {/* Nav Bat */}
+            <div className={classes.grow}></div>
+            <NavigationBar mobileNavBar={mobileNavBar} handleClose={handleClose} />
+            <div className={classes.grow}></div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={(e) => handleOpenMoreItem(e)}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
+            <MoreItemComponent
+              mobileMoreItem={mobileMoreItem}
+              handleClose={handleMoreItemClose}
+              totalQuantity={totalQuantity}
+            />
+          </Toolbar>
+        </Container>
       </AppBar>
     </div>
   );

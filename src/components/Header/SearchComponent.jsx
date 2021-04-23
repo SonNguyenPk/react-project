@@ -1,9 +1,20 @@
-import { fade, makeStyles } from '@material-ui/core';
+import { Button, fade, makeStyles } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import React from 'react';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
+import React, { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { FixedSizeList } from 'react-window';
+import { router } from 'src/utilise/routerLink';
 
-SearchItem.propTypes = {};
+SearchItem.propTypes = {
+  handleOnChange: PropTypes.func,
+};
+
+SearchItem.defaultProps = {
+  handleOnChange: null,
+};
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -42,10 +53,66 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
+  searchResult: {
+    backgroundColor: 'white',
+    color: 'black',
+    position: 'absolute',
+    zIndex: 99,
+    '& button': {
+      width: '100%',
+      justifyContent: 'flex-start',
+    },
+  },
 }));
 
-function SearchItem(props) {
+function SearchItem({ handleOnChange, searchResult }) {
+  const [value, setValue] = useState('');
+  const debounce = _.debounce((q) => {
+    handleOnChange(q);
+  }, 500);
+  const search = useCallback(debounce, []);
+
+  const handleChange = (e) => {
+    if (!handleOnChange) return;
+    const searchValue = e.target.value;
+    setValue(searchValue);
+    search(searchValue);
+  };
+
+  const listSearchResult = (props) => {
+    const { index, style } = props;
+    return (
+      <div style={style}>
+        <Link
+          style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
+          to={`${router.search}/${searchResult?.data?.[index]?.id}`}
+          onClick={() => {
+            setValue('');
+          }}
+        >
+          <Button>{searchResult?.data?.[index]?.name}</Button>
+        </Link>
+      </div>
+    );
+  };
   const classes = useStyles();
+  const searchList = (
+    <div className={classes.searchResult}>
+      <FixedSizeList height={400} width={300} itemSize={46} itemCount={10}>
+        {listSearchResult}
+      </FixedSizeList>
+      <Link
+        to={`search/q=${value}`}
+        onClick={() => {
+          setValue('');
+        }}
+      >
+        <Button>Show all result</Button>
+      </Link>
+    </div>
+  );
+
+  // const debounce = _.debounce(handleChange, 200);
 
   return (
     <div className={classes.search}>
@@ -59,8 +126,10 @@ function SearchItem(props) {
           input: classes.inputInput,
         }}
         inputProps={{ 'aria-label': 'search' }}
-        onChange={(e) => console.log(e.target.value)}
+        onChange={(e) => handleChange(e)}
+        value={value}
       />
+      {value && searchList}
     </div>
   );
 }

@@ -5,6 +5,7 @@ import PageNotFound from 'src/components/PageNotFound';
 import AddEditProduct from './pages/AddEditProduct';
 import ProductDetail from './pages/DetailProduct';
 import ProductsData from './pages/productList';
+import { router } from 'src/utilise/routerLink';
 
 ProductFeature.propTypes = {};
 
@@ -15,12 +16,9 @@ function ProductFeature(props) {
     <div>
       <Container>
         <Switch>
-          <Route exact path={match.url} component={ProductsData} />
-          <Route
-            path={`${match.path}/product-detail/:productId`}
-            component={ProductDetail}
-          />
-          <Route path={`${match.path}/edit/:productId`} component={AddEditProduct} />
+          <Route exact path={router.products} component={ProductsData} />
+          <Route path={`${router.productDetail}/:productId`} component={ProductDetail} />
+          <Route path={`${router.editProduct}/:productId`} component={AddEditProduct} />
           <Route component={PageNotFound} />
         </Switch>
       </Container>
