@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 0,
     paddingRight: 0,
     height: '2rem',
+    zIndex: 101,
   },
 
   homeButton: {
@@ -64,10 +65,21 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  overLayElement: {
+    width: '100%',
+    height: '100%',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    backgroundColor: 'black',
+    opacity: 0.3,
+    zIndex: 100,
+  },
 }));
 
 export default function HeaderComponent({ totalQuantity, handleSearch, searchResult }) {
   const classes = useStyles();
+  const [isSearching, setIsSearching] = useState(false);
   const [mobileNavBar, setMobileNavBar] = useState(null);
   const [mobileMoreItem, setMobileMoreItem] = useState(null);
 
@@ -89,6 +101,9 @@ export default function HeaderComponent({ totalQuantity, handleSearch, searchRes
 
   const handleMoreItemClose = () => {
     setMobileMoreItem(null);
+  };
+  const handleClickSearch = () => {
+    setIsSearching(true);
   };
 
   return (
@@ -115,7 +130,11 @@ export default function HeaderComponent({ totalQuantity, handleSearch, searchRes
             </NavLink>
             {/* Search Bar */}
             <SearchItem
-              handleOnChange={(q) => handleSearch && handleSearch(q)}
+              isSearching={isSearching}
+              handleClickOnSearchBar={handleClickSearch}
+              handleOnChange={(q) => {
+                handleSearch && handleSearch(q);
+              }}
               searchResult={searchResult}
             />
 
@@ -141,6 +160,14 @@ export default function HeaderComponent({ totalQuantity, handleSearch, searchRes
             />
           </Toolbar>
         </Container>
+        {isSearching && (
+          <div
+            onClick={() => {
+              setIsSearching(false);
+            }}
+            className={classes.overLayElement}
+          ></div>
+        )}
       </AppBar>
     </div>
   );

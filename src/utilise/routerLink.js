@@ -7,6 +7,5 @@ export const router = {
   productDetail: '/products/product-detail',
 
   carts: '/carts',
-
   search: '/search',
 };

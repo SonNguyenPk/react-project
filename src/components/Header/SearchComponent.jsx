@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     color: 'black',
     position: 'absolute',
-    zIndex: 99,
+    zIndex: 100,
     '& button': {
       width: '100%',
       justifyContent: 'flex-start',
@@ -65,7 +65,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SearchItem({ handleOnChange, searchResult }) {
+function SearchItem({
+  handleOnChange,
+  searchResult,
+  handleClickOnSearchBar,
+  isSearching,
+}) {
   const [value, setValue] = useState('');
   const debounce = _.debounce((q) => {
     handleOnChange(q);
@@ -79,13 +84,15 @@ function SearchItem({ handleOnChange, searchResult }) {
     search(searchValue);
   };
 
+  const getItemCount = 1 + (20 * searchResult?.data?.length || 0);
+
   const listSearchResult = (props) => {
     const { index, style } = props;
     return (
       <div style={style}>
         <Link
           style={{ textDecoration: 'none', color: 'black', flex: '1 0 auto' }}
-          to={`${router.search}/${searchResult?.data?.[index]?.id}`}
+          to={`${router.productDetail}/${searchResult?.data?.[index]?.id}`}
           onClick={() => {
             setValue('');
           }}
@@ -98,13 +105,13 @@ function SearchItem({ handleOnChange, searchResult }) {
   const classes = useStyles();
   const searchList = (
     <div className={classes.searchResult}>
-      <FixedSizeList height={400} width={300} itemSize={46} itemCount={10}>
+      <FixedSizeList height={getItemCount} width={300} itemSize={46} itemCount={10}>
         {listSearchResult}
       </FixedSizeList>
       <Link
-        to={`search/q=${value}`}
-        onClick={() => {
-          setValue('');
+        to={`${router.search}/q=${value}`}
+        onClick={(e) => {
+          handleClickOnSearchBar && handleClickOnSearchBar(e);
         }}
       >
         <Button>Show all result</Button>
@@ -120,6 +127,7 @@ function SearchItem({ handleOnChange, searchResult }) {
         <SearchIcon />
       </div>
       <InputBase
+        onClick={(e) => handleClickOnSearchBar && handleClickOnSearchBar(e)}
         placeholder="Search…"
         classes={{
           root: classes.inputRoot,
@@ -129,7 +137,7 @@ function SearchItem({ handleOnChange, searchResult }) {
         onChange={(e) => handleChange(e)}
         value={value}
       />
-      {value && searchList}
+      {isSearching && searchList}
     </div>
   );
 }
