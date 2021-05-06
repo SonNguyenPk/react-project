@@ -7,7 +7,7 @@ import ProductFeature from './features/products';
 import AddEditProduct from './features/products/pages/AddEditProduct';
 import SearchPage from './features/Search';
 import ShoppingCartFeature from './features/ShoppingCarts';
-import { router } from 'src/utilise/routerLink';
+import { router } from './utilise/routerLink';
 
 function App() {
   return (
